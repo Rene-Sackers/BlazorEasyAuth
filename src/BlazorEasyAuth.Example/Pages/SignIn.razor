@@ -1,0 +1,58 @@
+﻿@page "/authentication/signin/{ReturnUrl?}"
+@using BlazorEasyAuth.Services.Interfaces
+@using BlazorEasyAuth.Example.Providers.Interfaces
+@using BlazorEasyAuth.Models
+
+<EditForm Model="@_signInFormModel" OnSubmit="@Submit">
+	<InputText placeholder="Username" @bind-Value="_signInFormModel.Username" />
+	<InputText type="password" placeholder="Password" @bind-Value="_signInFormModel.Password" />
+	
+	<button type="submit">Sign in</button>
+</EditForm>
+
+@if (_errorMessage != null)
+{
+	<div style="color: #F00; padding: 5px; border: 1px solid #F00; margin-top: 10px;">@_errorMessage</div>
+}
+
+@code {
+
+	public class SignInFormModel
+	{
+		public string Username { get; set; }
+		
+		public string Password { get; set; }
+	}
+
+	[Parameter]
+	public string ReturnUrl { get; set; }
+	
+	[Inject]
+	public ISampleUsersProvider SampleUsersProvider { get; set; }
+
+	[Inject]
+	public ISignInTokenService SignInTokenService { get; set; }
+
+	[Inject]
+	public NavigationManager NavigationManager { get; set; }
+
+	private readonly SignInFormModel _signInFormModel = new ();
+
+	private string _errorMessage;
+
+	private void Submit()
+	{
+		_errorMessage = null;
+		var user = SampleUsersProvider.GetByCredentials(_signInFormModel.Username, _signInFormModel.Password);
+
+		if (user == null)
+		{
+			_errorMessage = "Incorrect credentials";
+			return;
+		}
+
+		var signInToken = SignInTokenService.CreateToken(user.GetId());
+
+		NavigationManager.NavigateTo(Urls.GetSignInActionUrl(signInToken, ReturnUrl), true);
+	}
+}

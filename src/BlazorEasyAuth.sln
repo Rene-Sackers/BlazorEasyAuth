@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEasyAuth.Example", "BlazorEasyAuth.Example\BlazorEasyAuth.Example.csproj", "{850B03F7-70FF-4124-9CF6-F9812E8FCB1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEasyAuth", "BlazorEasyAuth\BlazorEasyAuth.csproj", "{8D3679F0-61AB-4C89-8296-861D6C92A2D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{850B03F7-70FF-4124-9CF6-F9812E8FCB1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{850B03F7-70FF-4124-9CF6-F9812E8FCB1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{850B03F7-70FF-4124-9CF6-F9812E8FCB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{850B03F7-70FF-4124-9CF6-F9812E8FCB1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D3679F0-61AB-4C89-8296-861D6C92A2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D3679F0-61AB-4C89-8296-861D6C92A2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D3679F0-61AB-4C89-8296-861D6C92A2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D3679F0-61AB-4C89-8296-861D6C92A2D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

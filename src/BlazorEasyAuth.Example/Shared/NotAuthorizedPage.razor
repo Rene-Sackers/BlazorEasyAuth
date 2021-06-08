@@ -1,0 +1,20 @@
+﻿@using BlazorEasyAuth.Models
+@code
+{
+	[Inject]
+	private NavigationManager NavigationManager { get; set; }
+
+	protected override void OnInitialized()
+	{
+		var returnUrl = new Uri(NavigationManager.Uri).LocalPath.TrimStart('/');
+
+		try
+		{
+			NavigationManager.NavigateTo(Urls.GetSignInPageUrl(returnUrl), true);
+		}
+		catch (NavigationException)
+		{
+			// Throws for no apparent reason. Ignore.
+		}
+	}
+}
