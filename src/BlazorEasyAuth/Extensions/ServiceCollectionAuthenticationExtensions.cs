@@ -20,7 +20,7 @@ namespace BlazorEasyAuth.Extensions
         /// <summary>
         /// Make sure all policies are instantiated before calling this method.
         /// </summary>
-        public static IServiceCollection AddBlazorEasyAuth<TUserProvider>(this IServiceCollection services)
+        public static IServiceCollection AddBlazorEasyAuth<TUserProvider>(this IServiceCollection services, Action<AuthorizationOptions> configure)
             where TUserProvider : class, IUserProvider
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -58,19 +58,14 @@ namespace BlazorEasyAuth.Extensions
                     });
 
             services
-                .AddAuthorizationCore(config =>
-                {
-                    Policy.AllPolicies
-                        .ToList()
-                        .ForEach(p => config.AddPolicy(p, p.PolicyBuilder));
-                })
+                .AddAuthorizationCore(configure)
                 .AddAuthorizationPolicyEvaluator();
 
             services
                 .AddSingleton<IAuthorizationHandler, RelativeRoleRequirementHandler>()
                 .AddSingleton<IAuthorizationHandler, RelativeRoleByUserRequirementHandler>()
-                .AddScoped<IPolicyAuthorizationService, PolicyAuthorizationService>()
                 .AddSingleton<ISignInTokenService, SignInTokenService>()
+                .AddScoped<IPolicyAuthorizationService, PolicyAuthorizationService>()
                 .AddScoped<IUserAuthenticationService, UserAuthenticationService>()
                 .AddTransient<IRoleRequirementTestService, RoleRequirementTestService>()
                 .AddTransient<IUserProvider, TUserProvider>();

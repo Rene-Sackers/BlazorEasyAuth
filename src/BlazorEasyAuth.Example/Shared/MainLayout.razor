@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazorEasyAuth.Models
+@inherits LayoutComponentBase
 
 <div class="page">
 	<div class="sidebar">
@@ -7,7 +8,15 @@
 
 	<div class="main">
 		<div class="top-row px-4">
-			<a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+			<AuthorizeView>
+				<Authorized>
+					Hello, @context.User.Identity.Name!
+					<a href="@Urls.SignOutUrl">Sign out</a>
+				</Authorized>
+				<NotAuthorized>
+					<a href="@Urls.SignInPageUrl">Sign in</a>
+				</NotAuthorized>
+			</AuthorizeView>
 		</div>
 
 		<div class="content px-4">

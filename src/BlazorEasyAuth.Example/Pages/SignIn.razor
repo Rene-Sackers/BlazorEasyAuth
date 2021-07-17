@@ -2,6 +2,44 @@
 @using BlazorEasyAuth.Services.Interfaces
 @using BlazorEasyAuth.Example.Providers.Interfaces
 @using BlazorEasyAuth.Models
+@using BlazorEasyAuth.Example.Models
+
+<table class="table col-md-6">
+	<thead>
+	<tr>
+		<th>Username</th>
+		<th>Password</th>
+		<th>Roles</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>superuser</td>
+		<td>superuser</td>
+		<td>@Roles.Superuser</td>
+	</tr>
+	<tr>
+		<td>admin</td>
+		<td>admin</td>
+		<td>@Roles.Administrator</td>
+	</tr>
+	<tr>
+		<td>myrole1</td>
+		<td>myrole1</td>
+		<td>@Roles.MyRole1</td>
+	</tr>
+	<tr>
+		<td>myrole2</td>
+		<td>myrole2</td>
+		<td>@Roles.MyRole2</td>
+	</tr>
+	<tr>
+		<td>myrole1and2</td>
+		<td>myrole1and2</td>
+		<td>@Roles.MyRole1, @Roles.MyRole2</td>
+	</tr>
+	</tbody>
+</table>
 
 <EditForm Model="@_signInFormModel" OnSubmit="@Submit">
 	<InputText placeholder="Username" @bind-Value="_signInFormModel.Username" />
@@ -28,7 +66,7 @@
 	public string ReturnUrl { get; set; }
 	
 	[Inject]
-	public ISampleUsersProvider SampleUsersProvider { get; set; }
+	public IDatabaseSampleUsersProvider DatabaseSampleUsersProvider { get; set; }
 
 	[Inject]
 	public ISignInTokenService SignInTokenService { get; set; }
@@ -43,7 +81,7 @@
 	private void Submit()
 	{
 		_errorMessage = null;
-		var user = SampleUsersProvider.GetByCredentials(_signInFormModel.Username, _signInFormModel.Password);
+		var user = DatabaseSampleUsersProvider.GetByCredentials(_signInFormModel.Username, _signInFormModel.Password);
 
 		if (user == null)
 		{

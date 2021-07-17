@@ -8,6 +8,7 @@ namespace BlazorEasyAuth.Example.Models
 		public static readonly Role Administrator = new(999);
 
 		public static readonly Role ManageUsers = new();
-		public static readonly Role MyRole = new();
+		public static readonly Role MyRole1 = new();
+		public static readonly Role MyRole2 = new();
 	}
 }

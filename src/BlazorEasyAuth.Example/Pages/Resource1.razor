@@ -1,0 +1,68 @@
+﻿@page "/resource1"
+@using BlazorEasyAuth.Services.Interfaces
+@using BlazorEasyAuth.Example.Models
+
+<h3>Resource1</h3>
+
+This user can do the following things with Resource1:
+
+<table class="table col-md-6">
+	<tbody>
+	<tr>
+		<td>
+			View
+		</td>
+		<td>
+			<AuthorizeView Policy="@Policies.MyResource1.View">
+				<Authorized>Yes</Authorized>
+				<NotAuthorized>No</NotAuthorized>
+			</AuthorizeView>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Edit
+		</td>
+		<td>
+			<AuthorizeView Policy="@Policies.MyResource1.Edit">
+				<Authorized>Yes</Authorized>
+				<NotAuthorized>No</NotAuthorized>
+			</AuthorizeView>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Create
+		</td>
+		<td>
+			<AuthorizeView Policy="@Policies.MyResource1.Create">
+				<Authorized>Yes</Authorized>
+				<NotAuthorized>No</NotAuthorized>
+			</AuthorizeView>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Delete
+		</td>
+		<td>
+			<AuthorizeView Policy="@Policies.MyResource1.Delete">
+				<Authorized>Yes</Authorized>
+				<NotAuthorized>No</NotAuthorized>
+			</AuthorizeView>
+		</td>
+	</tr>
+	</tbody>
+</table>
+
+@code {
+	[Inject]
+	public IPolicyAuthorizationService PolicyAuthorizationService { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		// Ensure that we can view this resource
+		await PolicyAuthorizationService.AuthorizeAsync(Policies.MyResource1.View);
+	}
+
+}

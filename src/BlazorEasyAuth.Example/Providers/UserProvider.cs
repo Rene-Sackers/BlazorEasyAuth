@@ -7,14 +7,14 @@ namespace BlazorEasyAuth.Example.Providers
 {
 	public class UserProvider : IUserProvider
 	{
-		private readonly ISampleUsersProvider _sampleUsersProvider;
+		private readonly IDatabaseSampleUsersProvider _databaseSampleUsersProvider;
 
-		public UserProvider(ISampleUsersProvider sampleUsersProvider)
+		public UserProvider(IDatabaseSampleUsersProvider databaseSampleUsersProvider)
 		{
-			_sampleUsersProvider = sampleUsersProvider;
+			_databaseSampleUsersProvider = databaseSampleUsersProvider;
 		}
 		
 		public Task<IUser> GetById(string id)
-			=> Task.FromResult((IUser) _sampleUsersProvider.GetById(int.Parse(id)));
+			=> Task.FromResult((IUser) _databaseSampleUsersProvider.GetById(int.Parse(id)));
 	}
 }

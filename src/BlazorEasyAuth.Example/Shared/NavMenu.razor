@@ -1,4 +1,5 @@
 ﻿@using BlazorEasyAuth.Models
+@using BlazorEasyAuth.Example.Models
 <div class="top-row pl-4 navbar navbar-dark">
 	<a class="navbar-brand" href="">BlazorEasyAuth.Example</a>
 	<button class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -25,21 +26,19 @@
 				</NavLink>
 			</li>
 		</AuthorizeView>
-		<AuthorizeView>
-			<Authorized>
-				<li class="nav-item px-3">
-					<NavLink class="nav-link" href="@Urls.SignOutUrl" Match="NavLinkMatch.Prefix">
-						<span class="oi oi-account-logout" aria-hidden="true"></span> Sign out
-					</NavLink>
-				</li>
-			</Authorized>
-			<NotAuthorized>
-				<li class="nav-item px-3">
-					<NavLink class="nav-link" href="@Urls.SignInPageUrl" Match="NavLinkMatch.Prefix">
-						<span class="oi oi-account-login" aria-hidden="true"></span> Sign in
-					</NavLink>
-				</li>
-			</NotAuthorized>
+		<AuthorizeView Policy="@Policies.MyResource1.View">
+			<li class="nav-item px-3">
+				<NavLink class="nav-link" href="/resource1" Match="NavLinkMatch.All">
+					<span class="oi oi-lock-locked" aria-hidden="true"></span> Resource 1
+				</NavLink>
+			</li>
+		</AuthorizeView>
+		<AuthorizeView Policy="@Policies.MyResource2.View">
+			<li class="nav-item px-3">
+				<NavLink class="nav-link" href="/resource2" Match="NavLinkMatch.All">
+					<span class="oi oi-lock-locked" aria-hidden="true"></span> Resource 2
+				</NavLink>
+			</li>
 		</AuthorizeView>
 	</ul>
 </div>

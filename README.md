@@ -1,5 +1,7 @@
 # BlazorEasyAuth
 
+A framework to easily add authentication to a Blazor server application.
+
 ## Setup
 
 1. Set up your user repository/database. Create a user type that implements `BlazorEasyAuth.Models.IUser`
@@ -55,7 +57,7 @@
             </NotAuthorized>
         </AuthorizeRouteView>
        ```
-1. Create `BlazorEasyAuth.Providers.Interfaces.IUserProvider` implementation
+1. Create a `BlazorEasyAuth.Providers.Interfaces.IUserProvider` implementation (`MyUserProviderImplementation` used as example in next step).
 1. Modify `Startup.cs`
     1. Add services to `ConfigureServices(IServiceCollection services)`  
        Specify the type created in the previous step that implements `IUserProvider` as type argument
@@ -153,3 +155,6 @@ Because roles and policies have implicit string operators, it is easy to use the
 If you need to enumerate all available roles, there's a property on the `Role` class that allows you to do this: `Role.AllRoles`
 
 Similarly for policies: `Policy.AllPolicies`
+
+## Authorizing views
+

@@ -2,7 +2,7 @@
 
 namespace BlazorEasyAuth.Example.Providers.Interfaces
 {
-	public interface ISampleUsersProvider
+	public interface IDatabaseSampleUsersProvider
 	{
 		User GetById(int id);
 		

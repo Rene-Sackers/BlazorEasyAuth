@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BlazorEasyAuth.Models
 {
@@ -12,26 +11,15 @@ namespace BlazorEasyAuth.Models
 
 		public static IReadOnlyCollection<Policy> AllPolicies => Policies;
 
-		public Action<AuthorizationPolicyBuilder> PolicyBuilder { get; }
-
 		public string Name { get; }
 		
-		public Policy(Action<AuthorizationPolicyBuilder> policyBuilder, [CallerMemberName] string name = null)
+		public Policy([CallerMemberName] string name = null)
 		{
-			PolicyBuilder = policyBuilder;
-
-			if (name == null)
-			{
-				var policyMethod = new StackTrace().GetFrame(1)?.GetMethod();
-				if (policyMethod?.DeclaringType == null)
-					throw new("Failed to determine parent method for auto policy naming");
+			var policyMethod = new StackTrace().GetFrame(1)?.GetMethod();
+			if (policyMethod?.DeclaringType == null)
+				throw new("Failed to determine parent method for auto policy naming");
 			
-				Name = $"{policyMethod.DeclaringType.FullName}.{name}".Replace("+", ".");
-			}
-			else
-			{
-				Name = name;
-			}
+			Name = $"{policyMethod.DeclaringType.FullName}.{name}".Replace("+", ".");
 			
 			if (Policies.Contains(this))
 				throw new InvalidOperationException("Duplicate policy registered: " + Name);
