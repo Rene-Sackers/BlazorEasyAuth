@@ -1,0 +1,38 @@
+name: .NET
+
+on:
+  push:
+    branches: [ release ]
+  pull_request:
+    branches: [ release ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Set current date as env variable
+      run: echo "version=$(date +'%Y.%m.%d.%H%M%S')" >> $GITHUB_ENV
+      
+    - name: Echo current version
+      run: echo "${{ env.version }}"
+
+    - name: dotnet pack
+      run: dotnet pack ./src/BlazorEasyAuth/BlazorEasyAuth.csproj -o ./pack -p:PackageVersion=${{ env.version }} -c Release --no-restore
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Packed
+        path: ./pack
+        retention-days: 1
