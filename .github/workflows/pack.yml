@@ -22,7 +22,7 @@ jobs:
       run: dotnet restore ./src/BlazorEasyAuth/BlazorEasyAuth.csproj
       
     - name: Set current date as env variable
-      run: echo "version=$(date +'%Y.%m.%d.%H%M%S')" >> $GITHUB_ENV
+      run: echo "version=$(date +'%Y.%-m.%-d.%H%M%S')" >> $GITHUB_ENV
       
     - name: Echo current version
       run: echo "${{ env.version }}"
