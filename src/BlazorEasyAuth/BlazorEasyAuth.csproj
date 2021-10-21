@@ -2,6 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <Title>BlazorEasyAuth</Title>
+        <PackageProjectUrl>https://github.com/Rene-Sackers/BlazorEasyAuth</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Rene-Sackers/BlazorEasyAuth</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
