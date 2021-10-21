@@ -64,7 +64,7 @@ namespace BlazorEasyAuth.Services
 
 			var user = await _userProvider.GetById(userId);
 
-			return user;
+			return user.IsDeleted ? null : user;
 		}
 	}
 }

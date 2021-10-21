@@ -1,4 +1,6 @@
-﻿namespace BlazorEasyAuth.Models
+﻿using System;
+
+namespace BlazorEasyAuth.Models
 {
     public interface IUser
     {
@@ -11,5 +13,9 @@
         byte[] PasswordHash { get; set; }
         
         string[] Roles { get; set; }
+        
+        bool IsDeleted { get; set; }
+        
+        DateTimeOffset PermissionsChangeDate { get; set; }
     }
 }

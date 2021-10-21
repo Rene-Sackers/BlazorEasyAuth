@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BlazorEasyAuth.Handlers
 {
-	internal class RelativeRoleRequirementHandler : AuthorizationHandler<RelativeRoleRequirement, Role>
+	public class RelativeRoleRequirementHandler : AuthorizationHandler<RelativeRoleRequirement, Role>
 	{
 		private readonly IRoleRequirementTestService _roleRequirementTestService;
 
@@ -20,9 +20,10 @@ namespace BlazorEasyAuth.Handlers
 		{
 			var userHighestRole = context.User.GetHighestRole();
 
-			var success = _roleRequirementTestService.TestRequirement(userHighestRole, resource, requirement.RoleRequirement);
+			if (_roleRequirementTestService.TestRequirement(resource, requirement.RoleComparison, userHighestRole))
+				context.Succeed(requirement);
 
-			return context.SetSuccessAndReturnCompletedTask(requirement, success);
+			return Task.CompletedTask;
 		}
 	}
 }

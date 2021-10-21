@@ -2,6 +2,7 @@ using BlazorEasyAuth.Example.Models;
 using BlazorEasyAuth.Example.Providers;
 using BlazorEasyAuth.Example.Providers.Interfaces;
 using BlazorEasyAuth.Extensions;
+using BlazorEasyAuth.Models;
 using BlazorEasyAuth.Requirements;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -41,12 +42,12 @@ namespace BlazorEasyAuth.Example
 			authorizationOptions
 				.AddPolicy(Policies.Users.Edit, p => p
 					.RequireRole(Roles.ManageUsers, Roles.Administrator, Roles.Superuser)
-					.AddRelativeRoleRequirement(RoleRequirement.Lesser));
+					.AddRelativeRoleRequirement(RoleComparison.Lesser));
 			
 			authorizationOptions
 				.AddPolicy(Policies.Users.Delete, p => p
 					.RequireRole(Roles.ManageUsers, Roles.Administrator, Roles.Superuser)
-					.AddRelativeRoleRequirement(RoleRequirement.Lesser));
+					.AddRelativeRoleRequirement(RoleComparison.Lesser));
 			
 			// MyResource1
 			authorizationOptions

@@ -5,6 +5,6 @@ namespace BlazorEasyAuth.Services.Interfaces
 {
 	public interface IRoleRequirementTestService
 	{
-		bool TestRequirement(Role baseRole, Role targetRole, RoleRequirement targetRoleRequirement);
+		bool TestRequirement(Role roleA, RoleComparison comparison, Role roleB);
 	}
 }

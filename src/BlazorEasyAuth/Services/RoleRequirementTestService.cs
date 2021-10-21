@@ -7,18 +7,16 @@ namespace BlazorEasyAuth.Services
 {
 	public class RoleRequirementTestService : IRoleRequirementTestService
 	{
-		public bool TestRequirement(Role baseRole, Role targetRole, RoleRequirement targetRoleRequirement)
+		public bool TestRequirement(Role roleA, RoleComparison comparison, Role roleB)
 		{
-			if (targetRole == null)
-				return true;
-
-			return targetRoleRequirement switch
+			return comparison switch
 			{
-				RoleRequirement.Higher => targetRole > baseRole,
-				RoleRequirement.Equal => targetRole == baseRole,
-				RoleRequirement.LesserOrEqual => targetRole <= baseRole,
-				RoleRequirement.Lesser => targetRole < baseRole,
-				_ => throw new ArgumentOutOfRangeException(nameof(targetRoleRequirement))
+				RoleComparison.Higher => roleA > roleB,
+				RoleComparison.HigherOrEqual => roleA >= roleB,
+				RoleComparison.Equal => roleA == roleB,
+				RoleComparison.LesserOrEqual => roleA <= roleB,
+				RoleComparison.Lesser => roleA < roleB,
+				_ => throw new ArgumentOutOfRangeException(nameof(comparison))
 			};
 		}
 	}

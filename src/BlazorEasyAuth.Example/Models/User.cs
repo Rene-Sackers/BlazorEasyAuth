@@ -1,4 +1,5 @@
-﻿using BlazorEasyAuth.Models;
+﻿using System;
+using BlazorEasyAuth.Models;
 
 namespace BlazorEasyAuth.Example.Models
 {
@@ -22,6 +23,10 @@ namespace BlazorEasyAuth.Example.Models
 		
 		public string[] Roles { get; set; }
 		
+		public bool IsDeleted { get; set; }
+		
+		public DateTimeOffset PermissionsChangeDate { get; set; }
+
 		public string GetId() => Id.ToString();
 		
 		// Entity Framework JSON Roles column example
