@@ -5,8 +5,8 @@ namespace BlazorEasyAuth.Services.Interfaces
 {
 	public interface IPolicyAuthorizationService
 	{
-		Task AuthorizeAsync(Policy policy, object resource);
+		Task<bool> AuthorizeAsync(Policy policy, object resource, bool throwIfUnauthorized = true);
 		
-		Task AuthorizeAsync(Policy policy);
+		Task<bool> AuthorizeAsync(Policy policy, bool throwIfUnauthorized = true);
 	}
 }

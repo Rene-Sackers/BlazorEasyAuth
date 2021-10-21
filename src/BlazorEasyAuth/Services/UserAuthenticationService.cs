@@ -13,8 +13,6 @@ namespace BlazorEasyAuth.Services
 	{
 		private readonly AuthenticationStateProvider _authenticationStateProvider;
 
-		private ClaimsPrincipal _cachedAuthenticationClaimsPrincipal;
-
 		public UserAuthenticationService(AuthenticationStateProvider authenticationStateProvider)
 		{
 			_authenticationStateProvider = authenticationStateProvider;
@@ -34,12 +32,9 @@ namespace BlazorEasyAuth.Services
 			return new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 		}
 
-		public async Task<ClaimsPrincipal> GetCachedClaimsIdentityAsync()
+		public async Task<bool> IsAuthenticatedAsync()
 		{
-			if (_cachedAuthenticationClaimsPrincipal != null)
-				return _cachedAuthenticationClaimsPrincipal;
-
-			return _cachedAuthenticationClaimsPrincipal = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+			return (await _authenticationStateProvider.GetAuthenticationStateAsync())?.User.Identity?.IsAuthenticated == true;
 		}
 	}
 }

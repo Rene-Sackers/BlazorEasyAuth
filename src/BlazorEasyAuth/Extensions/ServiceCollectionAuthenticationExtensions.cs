@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using BlazorEasyAuth.Handlers;
 using BlazorEasyAuth.Models;
 using BlazorEasyAuth.Providers.Interfaces;
@@ -55,6 +56,7 @@ namespace BlazorEasyAuth.Extensions
                         options.SlidingExpiration = true;
                         options.LoginPath = Urls.SignInPageUrl;
                         options.LogoutPath = Urls.SignOutUrl;
+                        options.Events.OnValidatePrincipal = context => context.HttpContext.RequestServices.GetRequiredService<IValidatePrincipalService>().ValidatePrincipal(context);
                     });
 
             services
@@ -65,6 +67,7 @@ namespace BlazorEasyAuth.Extensions
                 .AddSingleton<IAuthorizationHandler, RelativeRoleRequirementHandler>()
                 .AddSingleton<IAuthorizationHandler, RelativeRoleByUserRequirementHandler>()
                 .AddSingleton<ISignInTokenService, SignInTokenService>()
+                .AddScoped<IValidatePrincipalService, ValidatePrincipalService>()
                 .AddScoped<IPolicyAuthorizationService, PolicyAuthorizationService>()
                 .AddScoped<IUserAuthenticationService, UserAuthenticationService>()
                 .AddTransient<IRoleRequirementTestService, RoleRequirementTestService>()

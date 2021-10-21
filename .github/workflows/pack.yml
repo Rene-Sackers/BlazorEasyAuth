@@ -2,33 +2,30 @@ name: .NET
 
 on:
   push:
-    branches: [ release ]
-  pull_request:
-    branches: [ release ]
+    tags:
+      - '1.*.*'
 
 jobs:
   build:
+    if: github.event.base_ref == 'refs/heads/release'
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+      
+    - name: Get version number
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.x
 
     - name: Restore dependencies
       run: dotnet restore ./src/BlazorEasyAuth/BlazorEasyAuth.csproj
-      
-    - name: Set current date as env variable
-      run: echo "version=$(date +'%Y.%-m.%-d.%H%M%S')" >> $GITHUB_ENV
-      
-    - name: Echo current version
-      run: echo "${{ env.version }}"
 
     - name: dotnet pack
-      run: dotnet pack ./src/BlazorEasyAuth/BlazorEasyAuth.csproj -o ./pack -p:PackageVersion=${{ env.version }} -c Release --no-restore
+      run: dotnet pack ./src/BlazorEasyAuth/BlazorEasyAuth.csproj -o ./pack -p:PackageVersion=${{ env.RELEASE_VERSION }} -c Release --no-restore
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2

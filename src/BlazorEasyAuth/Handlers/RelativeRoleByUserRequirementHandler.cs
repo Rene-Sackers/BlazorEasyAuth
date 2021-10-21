@@ -21,9 +21,10 @@ namespace BlazorEasyAuth.Handlers
             var userHighestRole = context.User.GetHighestRole();
             var targetUserHighestRole = resource.GetHighestRole();
 
-            var success = _roleRequirementTestService.TestRequirement(userHighestRole, targetUserHighestRole, requirement.RoleRequirement);
+            if (_roleRequirementTestService.TestRequirement(targetUserHighestRole, requirement.RoleComparison, userHighestRole))
+                context.Succeed(requirement);
 
-            return context.SetSuccessAndReturnCompletedTask(requirement, success);
+            return Task.CompletedTask;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace BlazorEasyAuth.Models
@@ -31,23 +32,23 @@ namespace BlazorEasyAuth.Models
             => role.ToString();
 
         public static bool operator >(Role thisRole, Role otherRole)
-            => otherRole is null || thisRole.Priority > otherRole.Priority;
-
-        public static bool operator <(Role thisRole, Role otherRole)
-            => thisRole.Priority < otherRole.Priority;
-
-        public static bool operator <=(Role thisRole, Role otherRole)
-            => thisRole.Equals(otherRole) || thisRole.Priority < otherRole.Priority;
+            => thisRole != otherRole && (otherRole == null || thisRole.Priority > otherRole.Priority);
 
         public static bool operator >=(Role thisRole, Role otherRole)
-            => thisRole.Equals(otherRole) || thisRole.Priority > otherRole.Priority;
+            => thisRole == otherRole || thisRole.Priority >= otherRole.Priority;
+
+        public static bool operator <(Role thisRole, Role otherRole)
+            => thisRole != otherRole && (thisRole == null || thisRole.Priority < otherRole.Priority);
+
+        public static bool operator <=(Role thisRole, Role otherRole)
+            => thisRole == otherRole || thisRole.Priority <= otherRole.Priority;
 
         public static bool operator ==(Role thisRole, Role otherRole)
         {
-            if (thisRole == null && otherRole == null)
+            if (thisRole == (object) null && otherRole == (object) null)
                 return true;
 
-            if (thisRole == null || otherRole == null)
+            if (thisRole == (object) null || otherRole == (object) null)
                 return false;
 
             return thisRole.Equals(otherRole);

@@ -1,22 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BlazorEasyAuth.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlazorEasyAuth.Requirements
 {
-	public enum RoleRequirement
+	public class RelativeRoleRequirement : IAuthorizationRequirement
 	{
-		Higher,
-		Equal,
-		LesserOrEqual,
-		Lesser
-	}
-	
-	internal class RelativeRoleRequirement : IAuthorizationRequirement
-	{
-		public RoleRequirement RoleRequirement { get; }
+		public RoleComparison RoleComparison { get; }
 
-		public RelativeRoleRequirement(RoleRequirement roleRequirement)
+		public RelativeRoleRequirement(RoleComparison roleComparison)
 		{
-			RoleRequirement = roleRequirement;
+			RoleComparison = roleComparison;
 		}
 	}
 }

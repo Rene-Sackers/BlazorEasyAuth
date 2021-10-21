@@ -11,17 +11,18 @@ namespace BlazorEasyAuth.Extensions
 			=> claimsPrincipal
 				.Claims
 				.Where(c => c.Type == ClaimTypes.Role)
-				.Select(c => Role.AllRoles.First(r => r == c.Value))
+				.Select(c => Role.AllRoles.FirstOrDefault(r => r == c.Value))
 				.GetHighestRole();
 
 		public static Role GetHighestRole(this IUser user)
 			=> user
 				.Roles
-				.Select(r => Role.AllRoles.First(role => role == r))
+				.Select(r => Role.AllRoles.FirstOrDefault(role => role == r))
 				.GetHighestRole();
 
 		public static Role GetHighestRole(this IEnumerable<Role> roles)
 			=> roles
+				?.Where(r => r != null)
 				.OrderByDescending(r => r.Priority)
 				.FirstOrDefault();
 	}

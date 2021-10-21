@@ -7,7 +7,6 @@ namespace BlazorEasyAuth.Services.Interfaces
 	public interface IUserAuthenticationService
 	{
 		ClaimsIdentity CreateClaimsIdentity(IUser user);
-		
-		Task<ClaimsPrincipal> GetCachedClaimsIdentityAsync();
+		Task<bool> IsAuthenticatedAsync();
 	}
 }
