@@ -33,3 +33,6 @@ jobs:
         name: Packed
         path: ./pack
         retention-days: 1
+
+    - name: Push NuGet package
+      run: dotnet nuget push ./pack/*.nupkg -k ${{ secrets.NUGETAPIKEY }}
