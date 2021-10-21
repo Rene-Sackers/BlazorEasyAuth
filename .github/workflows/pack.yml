@@ -25,7 +25,7 @@ jobs:
       run: dotnet restore ./src/BlazorEasyAuth/BlazorEasyAuth.csproj
 
     - name: dotnet pack
-      run: dotnet pack ./src/BlazorEasyAuth/BlazorEasyAuth.csproj -o ./pack -p:PackageVersion=${{ env.RELEASE_VERSION }} -c Release --no-restore --include-symbols
+      run: dotnet pack ./src/BlazorEasyAuth/BlazorEasyAuth.csproj -o ./pack -p:PackageVersion=${{ env.RELEASE_VERSION }} -c Release --no-restore --include-symbols -p:SymbolPackageFormat=snupkg
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
