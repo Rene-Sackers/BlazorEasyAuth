@@ -12,8 +12,8 @@ jobs:
     
     - name: Set version
       run: |
-        echo "VERSION=$(date +%y.%-m.%-d.%-H%M%S)" >> $GITHUB_ENV
-        echo "Version: ${{ env.VERSION }}"
+        echo "VERSION=$(date +%Y.%-m.%-d.%-H%M%S)" >> $GITHUB_ENV
+        echo "Version: $(date +%Y.%-m.%-d.%-H%M%S)"
     
     - name: Tag commit
       run: |
@@ -23,7 +23,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1.7.2
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.x
 
     - name: Restore dependencies
       run: dotnet restore ./src/BlazorEasyAuth/BlazorEasyAuth.csproj
