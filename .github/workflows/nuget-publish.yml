@@ -12,8 +12,8 @@ jobs:
     
     - name: Set version
       run: |
-        echo "VERSION=$(date +%Y.%-m.%-d.%-H%M%S)" >> $GITHUB_ENV
-        echo "Version: $(date +%Y.%-m.%-d.%-H%M%S)"
+        echo "VERSION=$(date +%Y.%-m.%-d.%-H%M)" >> $GITHUB_ENV
+        echo "Version: $(date +%Y.%-m.%-d.%-H%M)"
     
     - name: Tag commit
       run: |
