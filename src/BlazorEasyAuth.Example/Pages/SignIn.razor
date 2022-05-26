@@ -78,7 +78,7 @@
 
 	private string _errorMessage;
 
-	private void Submit()
+	private async Task Submit()
 	{
 		_errorMessage = null;
 		var user = DatabaseSampleUsersProvider.GetByCredentials(_signInFormModel.Username, _signInFormModel.Password);
@@ -89,7 +89,7 @@
 			return;
 		}
 
-		var signInToken = SignInTokenService.CreateToken(user.GetId());
+		var signInToken = await SignInTokenService.CreateTokenAsync(user.GetId());
 
 		NavigationManager.NavigateTo(Urls.GetSignInActionUrl(signInToken, ReturnUrl), true);
 	}
