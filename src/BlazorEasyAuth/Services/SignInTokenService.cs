@@ -21,15 +21,13 @@ namespace BlazorEasyAuth.Services
 			_userProvider = userProvider;
 		}
 
-		public string CreateToken(string userId)
+		public Task<string> CreateTokenAsync(string userId)
 		{
-			var currentToken = _signInTokens
-				.FirstOrDefault(sit => sit.Value.UserId == userId)
-				.Value
-				?.Token;
-
-			if (currentToken != null)
-				_signInTokens.TryRemove(currentToken, out _);
+			_signInTokens
+				.Where(sit => sit.Value.UserId == userId)
+				.Select(kv => kv.Key)
+				.ToList()
+				.ForEach(key => _signInTokens.TryRemove(key, out _));
 
 			var token = new SignInToken
 			{
@@ -39,25 +37,25 @@ namespace BlazorEasyAuth.Services
 			};
 
 			return !_signInTokens.TryAdd(token.Token, token)
-				? CreateToken(userId)
-				: token.Token;
+				? CreateTokenAsync(userId)
+				: Task.FromResult(token.Token);
 		}
 
-		public string? GetUserIdForToken(string token)
+		public Task<string?> GetUserIdForTokenAsync(string token)
 		{
 			if (!_signInTokens.TryGetValue(token, out var existingToken))
-				return null;
+				return Task.FromResult<string?>(null);
 
 			_signInTokens.TryRemove(token, out _);
 
-			return existingToken.ExpirationDate < DateTimeOffset.Now
+			return Task.FromResult(existingToken.ExpirationDate < DateTimeOffset.Now
 				? null
-				: existingToken.UserId;
+				: existingToken.UserId);
 		}
 
 		public async Task<IUser?> GetUserForSignInTokenAsync(string token)
 		{
-			var userId = GetUserIdForToken(token);
+			var userId = await GetUserIdForTokenAsync(token);
 
 			if (userId == null)
 				return null;

@@ -6,9 +6,9 @@ namespace BlazorEasyAuth.Services.Interfaces
 {
 	public interface ISignInTokenService
 	{
-		string CreateToken(string userId);
+		Task<string> CreateTokenAsync(string userId);
 		
-		string? GetUserIdForToken(string token);
+		Task<string?> GetUserIdForTokenAsync(string token);
 		Task<IUser?> GetUserForSignInTokenAsync(string token);
 	}
 }
