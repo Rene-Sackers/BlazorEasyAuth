@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build:
-    if: github.event.base_ref == 'refs/heads/release'
+    if: github.ref == 'refs/heads/release'
     runs-on: ubuntu-latest
 
     steps:
