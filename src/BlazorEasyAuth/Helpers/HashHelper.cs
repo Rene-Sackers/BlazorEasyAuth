@@ -11,7 +11,7 @@ namespace BlazorEasyAuth.Helpers
 			if (string.IsNullOrWhiteSpace(@string))
 				throw new ArgumentException("Can't hash empty string", nameof(@string));
 			
-			var sha256 = new SHA256CryptoServiceProvider();
+			using var sha256 = SHA256.Create();
 			var sha256data = sha256.ComputeHash(Encoding.UTF8.GetBytes(@string));
 
 			return sha256data;
