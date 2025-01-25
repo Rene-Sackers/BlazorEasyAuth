@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorEasyAuth.Controllers
 {
+	[ApiExplorerSettings(IgnoreApi = true)]
 	public class AuthenticationController : Controller
 	{
 		private readonly IUserAuthenticationService _userAuthenticationService;
